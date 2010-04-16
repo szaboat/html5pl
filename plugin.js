@@ -2,9 +2,26 @@ $.fn.html5pl = function() {
   
   $().createControls();
   
-  var paused;
+  /**************************************/
+  var audioTag = $('<audio>').attr({'id':'html5p'}).append($('<source>'));
+
+  $('body').append(audioTag);
   
+  var songs = [];
+
   $('a').each(function(){
+    if($(this).attr('href').match(/mp3|m4a/)){
+      songs.push(this);
+    }
+  });
+
+  $('html5p source').attr('src',songs[0][1]);
+
+  $().playFilelist(songs);
+
+
+  /**************************************/ 
+  /*$('a').each(function(){
     if($(this).attr('href').match(/mp3/)){
       audio = $('<audio>');
       source = $('<source>').attr('src',$(this).attr('href'));
@@ -19,6 +36,24 @@ $.fn.html5pl = function() {
       $(this).parent().css('background',"yellow");
     }
   });
+  
+  */
+};
+
+$.fn.createControls = function(){
+  holder = $('<div>').css({
+    'position':'absolute',
+    'top':'0',
+    'right':'0',
+    'width': '35px',
+    'height': '20px',
+    'background':'yellow',
+    'color':'black',
+    'padding':'1em'
+  });
+  pause = $("<span class='pause'>pause</span>");
+  holder.append(pause);
+  $('body').append(holder);
   
   $('.pause').live('click',function(){
     var paused;
@@ -39,25 +74,11 @@ $.fn.html5pl = function() {
     });    
     $(this).addClass('pause').html('pause').removeClass('play');
   });
-  
-};
-
-$.fn.createControls = function(){
-  holder = $('<div>').css({
-    'position':'absolute',
-    'top':'0',
-    'right':'0',
-    'width': '35px',
-    'height': '20px',
-    'background':'yellow',
-    'color':'black',
-    'padding':'1em'
-  });
-  pause = $("<span class='pause'>pause</span>");
-  holder.append(pause);
-  $('body').append(holder);
 }
 
-$.fn.c = function() {
-  console.log('foo');
+$.fn.playFilelist = function(pl){
+  console.log(pl);
+  var player = $('#html5p');
+  player.find('source').attr('src',pl[0]);
+  player.get(0).play();
 }
