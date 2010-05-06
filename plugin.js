@@ -7,6 +7,7 @@ $.fn.html5pl = function() {
   var player = $('audio').get(0);
    
   player.songs = [];
+  player.state = -1;
 
   $('a').each(function(){
     if($(this).attr('href').match(/mp3|m4a/)){
@@ -33,7 +34,9 @@ $.fn.html5pl = function() {
         'font-family':'sans'
       });
       pause = $("<span class='play'>play</span>");
+      next = $("<span class='next'> ☞ </span>");
       holder.append(pause);
+      holder.append(next);
       $('body').append(holder);
      
       // play
@@ -51,13 +54,33 @@ $.fn.html5pl = function() {
       
       $('.play').live('click',function(){
         if(player.paused) {
-          player.play();
+          if (player.state < 0 ){
+              player.play();
+          } else { 
+              player.play();
+          }
+          $(this).addClass('pause').html('pause').removeClass('play');
         }
-        $(this).addClass('pause').html('pause').removeClass('play');
+        player.play();
+      });
+
+      // next
+
+      $('.next').live('click',function(e){
+        e.preventDefault();
+        player.pause();
+        player.state++;
+        if (player.state == player.songs.length) {
+            player.state = 0;
+        }
+        console.log(player.state,player.songs[player.state].title,player.songs.length);
+        $(player).find('source').attr('src', player.songs[player.state].url);
+        player.load();
+        player.play();
       });
 
       player.addEventListener('ended', function(e) {
-        console.log('ended');
+        $('.next').trigger('click');
       });
 
     }
@@ -69,6 +92,7 @@ $.fn.html5pl = function() {
 
     playFilelist(player.songs);
     createControls();
+    $('.next').trigger('click');
 };
 
 
