@@ -94,11 +94,18 @@ $.fn.html5pl = function() {
     $('.play').trigger('click');
     player.load();
     player.play();
-    $('body').attr('title','Currently playing: ' + player.songs[player.state].title);
+    document.title = 'Playing: ' + player.songs[player.state].title;
   }
 
-  player.addEventListener('ended', function(e) {
+  /*player.addEventListener('ended', function(e) {
+    console.log('start next');
     $('.next').trigger('click');
+  });*/
+
+  // ended event was not fired correctly
+  player.addEventListener('timeupdate', function(evt) {
+    if(player.currentTime == player.duration)
+        $('.next').trigger('click');
   });
 
   playFilelist(player.songs);
