@@ -9,7 +9,8 @@ $.fn.html5pl = function() {
   player.state = -1;
 
   $('a').each(function(){
-    if($(this).attr('href').match(/mp3|m4a/)){
+    var href = $(this).attr('href') || ''; 
+    if(href.match(/mp3|m4a/)){
       var song = {
         title: this.innerText,
         url: this.href
