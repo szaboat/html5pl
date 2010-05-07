@@ -34,10 +34,12 @@
           'padding':'1em',
           'font-family': 'Helvetica, sans'
         }).addClass('player');
-        pause = $("<span class='play'>play</span>");
-        prev = $("<span class='prev'> &#171; </span>");
-        next = $("<span class='next'> &#187; </span>");
         
+        // controls
+        pause = $("<span class='play'>play</span>").css({'cursor':'pointer'});
+        prev = $("<span class='prev'> &#171; </span>").css({'cursor':'pointer'});
+        next = $("<span class='next'> &#187; </span>").css({'cursor':'pointer'});
+         
         holder.append(pause);
         holder.append(prev);
         holder.append(next);
