@@ -23,7 +23,7 @@ $.fn.html5pl = function() {
 
   (function(){
     holder = $('<div>').css({
-      'position':'absolute',
+      'position':'fixed',
       'top':'0',
       'right':'0',
       'height': '20px',
@@ -33,8 +33,8 @@ $.fn.html5pl = function() {
       'font-family': 'Helvetica, sans'
     }).addClass('player');
     pause = $("<span class='play'>play</span>");
-    prev = $("<span class='prev'> ☜ </span>");
-    next = $("<span class='next'> ☞ </span>");
+    prev = $("<span class='prev'> &#171; </span>");
+    next = $("<span class='next'> &#187; </span>");
     
     holder.append(pause);
     holder.append(prev);
