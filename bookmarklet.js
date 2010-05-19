@@ -1,3 +1,5 @@
+// load it dynamically
+
 (function($) {
     $.fn.html5pl = function() {
   

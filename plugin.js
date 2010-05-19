@@ -1,3 +1,5 @@
+// key handling - space - pause
+
 (function($) {
     $.fn.html5pl = function() {
   
