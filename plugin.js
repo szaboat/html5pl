@@ -49,7 +49,6 @@
       })();
         
       var playFilelist = function(pl){
-        console.log(pl);
         $(player).find('source').attr('src',pl[0].url);
       }
         
@@ -79,7 +78,6 @@
         player.state++;
         if (player.state == player.songs.length)
             player.state = 0
-        console.log(player.state,player.songs[player.state]);
         $(player).find('source').attr('src', player.songs[player.state].url);
         loadAndPlay();
       });
@@ -103,11 +101,6 @@
         player.play();
         document.title = 'Playing: ' + player.songs[player.state].title;
       }
-
-      /*player.addEventListener('ended', function(e) {
-        console.log('start next');
-        $('.next').trigger('click');
-      });*/
 
       // ended event was not fired correctly
       player.addEventListener('timeupdate', function(evt) {
